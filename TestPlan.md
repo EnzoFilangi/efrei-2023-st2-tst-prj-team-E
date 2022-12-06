@@ -121,7 +121,7 @@ Description : Click on "Update address", change the adress of the employee, then
 
 Acceptance : The changes are reflected on the employe's detail page
 
-Works : Yes
+Works : No, changes to the second line of the address are not saved
 
 ### 3.4 - Update adress using a negative ZIP Code
 
