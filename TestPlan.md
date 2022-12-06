@@ -141,7 +141,7 @@ Works : Yes
 
 ### 3.6 - Try to change the employee's start date using direct HTTP requests
 
-Description : Using some software to make HTTP requests such as Postman, send a POST request to "https://e.hr.dmerej.info/add_employee" and change the date in the "hiring_date" field
+Description : Using some software to make HTTP requests such as Postman, send a POST request to "https://e.hr.dmerej.info/employee/1/contract" and change the date in the "hiring_date" field
 
 Acceptance : The changes should be rejected
 
