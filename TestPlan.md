@@ -252,7 +252,7 @@ Description : Choose a team. Click on "Delete" and then "Proceed".
 
 Acceptance : The team should be deleted, and all its member removed from it
 
-Works : No, deleting a list with employees in it doesn't work. However, empty teams can be deleted
+Works : No, deleting a team with employees in it deletes all employees as well. However, empty teams can be deleted
 
 ## 7 - Database reset
 ### 7.1 - All the data in the database should be deleted
