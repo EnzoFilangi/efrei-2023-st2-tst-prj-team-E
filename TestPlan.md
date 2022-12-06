@@ -71,6 +71,8 @@ Description : Using some software to make HTTP requests such as Postman, send a 
 
 Acceptance : The employee is added with an hiring date in the french format and not the american format (ex : 11/12/2022 = 11 dec 2022 and not 12 nov 2022)
 
+Works : No, if sending a request directly to the server, it is parsed as an american date
+
 ### 1.10 - Try to add two emloyees with the same email address
 
 Description : Add two employees that have the same email address
