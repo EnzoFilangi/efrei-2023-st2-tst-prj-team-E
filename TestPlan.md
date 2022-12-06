@@ -71,7 +71,13 @@ Description : Using some software to make HTTP requests such as Postman, send a 
 
 Acceptance : The employee is added with an hiring date in the french format and not the american format (ex : 11/12/2022 = 11 dec 2022 and not 12 nov 2022)
 
-Works : Yes
+### 1.10 - Try to add two emloyees with the same email address
+
+Description : Add two employees that have the same email address
+
+Acceptance : The second insertion should fail as email addresses are supposed to be unique
+
+Works : No, it is possible to create two employees with the same address
 
 ## 2 - List Employees page
 ### 2.1 - The page should display all employees
@@ -178,4 +184,12 @@ Description : Using some software to make HTTP requests such as Postman, send a 
 Acceptance : The server refuses the request
 
 Works : Yes
+
+### 3.11 - Try to edit the email address of an employee so it is the same as another employee
+
+Description : Edit an employee's email address and set it to an address already used by another employee
+
+Acceptance : The edition should fail as email addresses are supposed to be unique
+
+Works : No, it is possible to edit an employe so they have the same address as someone else
 
