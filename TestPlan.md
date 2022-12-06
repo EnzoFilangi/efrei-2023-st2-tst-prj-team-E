@@ -56,3 +56,20 @@ Description : Using some software to make HTTP requests such as Postman, send a 
 Acceptance : The server should refuse the request
 
 Works : No, the server acepts the request even when the CSRF token is absent
+
+## 2 - List Employees page
+### 2.1 - The page should display all employees
+
+Description : Empty the employees database, add a few employees, and go the to "List Employees" page
+
+Acceptance : Verify that add added employees are visible and that their information is correct
+
+Works : Yes
+
+### 2.2 - The page should redirect to the right actions when clicking the "Edit" and "Delete" buttons
+
+Description : Click on the "Edit" button, then go back to the page and click the "Delete" button
+
+Acceptance : Verify that you are redirected to a page to edit the user, and a page to delete the user
+
+Works : Yes
