@@ -84,7 +84,7 @@ Works : No, it is possible to create two employees with the same address
 
 Description : Empty the employees database, add a few employees, and go the to "List Employees" page
 
-Acceptance : Verify that add added employees are visible and that their information is correct
+Acceptance : Verify that the added employees are visible and that their information is correct
 
 Works : Yes
 
@@ -202,10 +202,69 @@ Acceptance : The employee should be removed from the employee's list
 
 Works : Yes
 
-### 4.1 - Deleting an employee should remove them from their team
+### 4.2 - Deleting an employee should remove them from their team
 
 Description : Choose an employee that is in a team, and click on the delete button, then on "Proceed"
 
 Acceptance : The employee should be removed from their team's list
 
 Works : Yes
+
+## 5 - Team creation
+### 5.1 - Create a team with a valid name
+
+Description : On the main page, click on "Create new team". Choose a team name, write it in the field, and click on "Add"
+
+Acceptance : Go to the team list and ensure the new team is there
+
+Works : Yes
+
+### 5.2 - Try to reate a team with a name that already exists
+
+Description : On the main page, click on "Create new team". Choose a team name that already exists, write it in the field, and click on "Add"
+
+Acceptance : The addition should be refused as the name is already taken
+
+Works : Yes
+
+## 6 - Team list
+### 6.1 - The page should display all teams
+
+Description : Empty the team list, add a few teams, and go the to "List teams" page
+
+Acceptance : Verify that the added teams are visible and that their information is correct
+
+Works : Yes
+
+### 6.2 - The member list should be correct
+
+Description : Add a few employees to a team. Click on "View members" in the team list.
+
+Acceptance : Verify that all the employees that have been added are listed, with the correct information
+
+Works : Yes
+
+### 6.3 - Delete a team
+
+Description : Choose a team. Click on "Delete" and then "Proceed".
+
+Acceptance : The team should be deleted, and all its member removed from it
+
+Works : No, deleting a list with employees in it doesn't work. However, empty teams can be deleted
+
+## 7 - Database reset
+### 7.1 - All the data in the database should be deleted
+
+Description : Fill the database with some employees and teams. On the main page, click on "Reset database", then "Proceed"
+
+Acceptance : All the data should be deleted
+
+Works : Yes
+
+### 7.2 - Incrementing IDs should be reset on database deletion
+
+Description : All tables that use autoincrement fields should reset those to their default value when the database is reset. Fill the database with some employees and teams. On the main page, click on "Reset database", then "Proceed". Then add new employees and teams
+
+Acceptance : Check that the new employees and teams added after the deletion have ids that start at 1
+
+Works : No, the new employees' and teams' ids aren't reset
