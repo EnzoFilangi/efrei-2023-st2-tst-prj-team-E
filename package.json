@@ -1,0 +1,12 @@
+{
+  "name": "efrei-2023-st2-tst-prj-team-E",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:EnzoFilangi/efrei-2023-st2-tst-prj-team-E.git",
+  "author": "Samuel Bader <samuel.bader@carbon-it.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.28.1"
+  },
+  "scripts": {}
+}
