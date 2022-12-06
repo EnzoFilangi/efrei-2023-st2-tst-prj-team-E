@@ -57,6 +57,14 @@ Acceptance : The server should refuse the request
 
 Works : No, the server acepts the request even when the CSRF token is absent
 
+### 1.8 - Try to use a negative integer for the ZIP Code
+
+Description : Click on the "Add new employee" link on the main page, then completely fill the form with dummy data, set a negative integer for the ZIP code, and click on the "Add" button
+
+Acceptance : The application should refuse to add the user
+
+Works : No, the application accepts a negative ZIP Code
+
 ## 2 - List Employees page
 ### 2.1 - The page should display all employees
 
