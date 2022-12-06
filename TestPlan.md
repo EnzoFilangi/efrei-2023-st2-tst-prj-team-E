@@ -65,6 +65,14 @@ Acceptance : The application should refuse to add the user
 
 Works : No, the application accepts a negative ZIP Code
 
+### 1.9 - Ensure the date is parsed as DD/MM/YYYY
+
+Description : Using some software to make HTTP requests such as Postman, send a POST request to "https://e.hr.dmerej.info/add_employee" with a date in the DD/MM/YYYY format
+
+Acceptance : The employee is added with an hiring date in the french format and not the american format (ex : 11/12/2022 = 11 dec 2022 and not 12 nov 2022)
+
+Works : Yes
+
 ## 2 - List Employees page
 ### 2.1 - The page should display all employees
 
@@ -81,3 +89,93 @@ Description : Click on the "Edit" button, then go back to the page and click the
 Acceptance : Verify that you are redirected to a page to edit the user, and a page to delete the user
 
 Works : Yes
+
+## 3 - Edit Employee page
+### 3.1 - The page should display the correcy information
+
+Description : Go to edit an employee, and read the displayed information
+
+Acceptance : The information should be correct
+
+Works : Yes
+
+### 3.2 - Update basic information using correct values
+
+Description : Click on "Update basic info", change the name and email adress of the employee, then click on "Update"
+
+Acceptance : The changes are reflected on the employe's detail page
+
+Works : Yes
+
+### 3.3 - Update adress using correct values
+
+Description : Click on "Update address", change the adress of the employee, then click on "Update"
+
+Acceptance : The changes are reflected on the employe's detail page
+
+Works : Yes
+
+### 3.4 - Update adress using a negative ZIP Code
+
+Description : Click on "Update address", change the adress of the employee and specify a negative zip code, then click on "Update"
+
+Acceptance : The changes should be rejected
+
+Works : No, the negative zip code is accepted
+
+### 3.5 - Update contract with correct values
+
+Description : Click on "Update contract", change the job title of the employee, then click on "Update"
+
+Acceptance : The changes are reflected on the employe's detail page
+
+Works : Yes
+
+### 3.6 - Try to change the employee's start date using direct HTTP requests
+
+Description : Using some software to make HTTP requests such as Postman, send a POST request to "https://e.hr.dmerej.info/add_employee" and change the date in the "hiring_date" field
+
+Acceptance : The changes should be rejected
+
+Works : No, the hiring date is changed
+
+### 3.7 - Promote an employee as manager
+
+Description : Click on "Promote as manager", then click on "Proceed"
+
+Acceptance : The changes are reflected on the employe's detail page
+
+Works : Yes
+
+### 3.8 - Add an employee to a team
+
+Description : Click on "Add to team", then choose an existing teams, then click on "Add"
+
+Acceptance : The employee is now listed in the team they were added to
+
+Works : Yes
+
+### 3.9 - Add an employee to a team lists all teams
+
+Description : Click on "Add to team", then click on the selection dropdown
+
+Acceptance : All teams are listed
+
+Works : Yes
+
+### 3.10 - Add an employee to a team removes the employee from their previous team
+
+Description : Choose an employee that is in a team. Click on "Add to team", then choose another team, and click "Add"
+
+Acceptance : The employee is removed from their previous team and added to the new one
+
+Works : Yes
+
+### 3.10 - Try to add an employee to a non-existent team using direct HTTP requests
+
+Description : Using some software to make HTTP requests such as Postman, send a POST request to "https://e.hr.dmerej.info/employee/1/add_to_team" with a non existent team in the "team" field
+
+Acceptance : The server refuses the request
+
+Works : Yes
+
