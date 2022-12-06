@@ -193,3 +193,19 @@ Acceptance : The edition should fail as email addresses are supposed to be uniqu
 
 Works : No, it is possible to edit an employe so they have the same address as someone else
 
+## 4 - Delete employee page
+### 4.1 - Deleting an employee should remove them from the employee's list
+
+Description : Choose an employee, and click on the delete button, then on "Proceed"
+
+Acceptance : The employee should be removed from the employee's list
+
+Works : Yes
+
+### 4.1 - Deleting an employee should remove them from their team
+
+Description : Choose an employee that is in a team, and click on the delete button, then on "Proceed"
+
+Acceptance : The employee should be removed from their team's list
+
+Works : Yes
