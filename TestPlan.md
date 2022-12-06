@@ -229,6 +229,14 @@ Acceptance : The addition should be refused as the name is already taken
 
 Works : Yes
 
+### 5.2 - Try to reate a team with an invalid name
+
+Description : On the main page, click on "Create new team". Choose a team name like ' ' (only a space), write it in the field, and click on "Add"
+
+Acceptance : The addition should be refused as the name is invalid
+
+Works : No, the server crashes instead
+
 ## 6 - Team list
 ### 6.1 - The page should display all teams
 
