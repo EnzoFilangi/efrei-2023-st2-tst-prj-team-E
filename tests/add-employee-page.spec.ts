@@ -1,41 +1,119 @@
-import {test, expect, Page} from '@playwright/test';
+import {test, expect} from '@playwright/test';
 import {EmployeeFormData} from "./interfaces/employeeFormData";
 
 import axios from 'axios';
+import {AddEmployeePage} from "./pages/add-employee-page";
+import {generateValidEmployeeFormData} from "./helpers/generator";
 
-async function fillForm(page: Page, data: EmployeeFormData) : Promise<void> {
-    await page.locator('id=id_name').fill(data.name);
-    await page.locator('id=id_email').fill(data.email);
-    await page.locator('id=id_address_line1').fill(data.adress1);
-    await page.locator('id=id_address_line2').fill(data.adress2);
-    await page.locator('id=id_city').fill(data.city);
-    await page.locator('id=id_zip_code').fill(data.zip);
-    await page.locator('id=id_hiring_date').fill(data.hiringDate);
-    await page.locator('id=id_job_title').fill(data.jobTitle);
-}
-
-test.beforeEach(async ({ page }, testInfo) => {
+test.beforeEach(async () => {
     await axios.post('https://e.hr.dmerej.info/reset_db');
 });
 
 
 test('should insert an employee when filling the fields with valid data', async ({ page }) => {
-    const data : EmployeeFormData = {
-        adress1: "25",
-        adress2: "Avenue de la République",
-        city: "Paris",
-        email: "a@b.com",
-        hiringDate: "2022-12-12",
-        jobTitle: "Chief test officer",
-        name: "ab",
-        zip: "75000"
-    }
+    const data: EmployeeFormData = generateValidEmployeeFormData()
+
+    const addEmployeePage = new AddEmployeePage(page);
+    await addEmployeePage.goto();
 
     // Fill the form and submit it to try to create the new employee
-    await page.goto('https://e.hr.dmerej.info/add_employee');
-    await fillForm(page, data);
-    await page.locator("[type=submit]").click();
+    await addEmployeePage.fillForm(data);
+    await addEmployeePage.submitForm();
 
     // Expect redirect to employee list page if the addition was a success
     await expect(page).toHaveURL("https://e.hr.dmerej.info/employees");
 });
+
+test('should not insert an employee when the form is empty', async ({ page }) => {
+    const addEmployeePage = new AddEmployeePage(page);
+    await addEmployeePage.goto();
+
+    // Submit the form without any data in it
+    await addEmployeePage.submitForm();
+
+    // Expect no redirection
+    await expect(page).toHaveURL("https://e.hr.dmerej.info/add_employee");
+    // It should focus the cursor on the first field
+    await expect(addEmployeePage.getFieldById("id_name")).toBeFocused();
+});
+
+test('should not insert an employee when a mandatory field is missing', async ({ page }) => {
+    const data: EmployeeFormData = generateValidEmployeeFormData()
+
+    const addEmployeePage = new AddEmployeePage(page);
+    await addEmployeePage.goto();
+
+    for (let field of addEmployeePage.formFields){
+        if (field !== "id_address_line2") { // Ignore the only optionnal field
+            await addEmployeePage.fillForm(data);
+            await addEmployeePage.getFieldById(field).fill("");
+
+            await addEmployeePage.submitForm()
+
+            await expect(page).toHaveURL("https://e.hr.dmerej.info/add_employee");
+            await expect(addEmployeePage.getFieldById(field)).toBeFocused();
+        }
+    }
+});
+
+test('ZIP code field should refuse strings', async ({ page }) => {
+    const data: EmployeeFormData = generateValidEmployeeFormData();
+    data.zip = "not an integer"
+
+    const addEmployeePage = new AddEmployeePage(page);
+    await addEmployeePage.goto();
+
+    // Shouldn't even be able to write a string in the field
+    await expect(addEmployeePage.fillForm(data)).rejects.not.toBeUndefined();
+});
+
+test('ZIP code field should refuse floats', async ({ page }) => {
+    const data: EmployeeFormData = generateValidEmployeeFormData();
+    data.zip = "42.42";
+
+    const addEmployeePage = new AddEmployeePage(page);
+    await addEmployeePage.goto();
+
+    await addEmployeePage.fillForm(data);
+    await addEmployeePage.submitForm();
+
+    // Expect no redirection
+    await expect(page).toHaveURL("https://e.hr.dmerej.info/add_employee");
+    // It should focus the cursor on the field with wrong data
+    await expect(addEmployeePage.getFieldById("id_zip_code")).toBeFocused();
+});
+
+test('ZIP code field should refuse negative integers', async ({ page }) => {
+    const data: EmployeeFormData = generateValidEmployeeFormData();
+    data.zip = "-42";
+
+    const addEmployeePage = new AddEmployeePage(page);
+    await addEmployeePage.goto();
+
+    await addEmployeePage.fillForm(data);
+    await addEmployeePage.submitForm();
+
+    // Expect no redirection
+    await expect(page).toHaveURL("https://e.hr.dmerej.info/add_employee");
+    // It should focus the cursor on the field with wrong data
+    await expect(addEmployeePage.getFieldById("id_zip_code")).toBeFocused();
+});
+
+test('It should not be possible to insert two employees with the same email address', async ({page}) => {
+    const data: EmployeeFormData = generateValidEmployeeFormData()
+
+    const addEmployeePage = new AddEmployeePage(page);
+    await addEmployeePage.goto();
+
+    // Fill the form and submit it to try to create the first employee
+    await addEmployeePage.fillForm(data);
+    await addEmployeePage.submitForm();
+
+    // Try to create the second employee
+    await addEmployeePage.goto();
+    await addEmployeePage.fillForm(data);
+    await addEmployeePage.submitForm();
+
+    // Expect second addition to fail
+    await expect(page).toHaveURL("https://e.hr.dmerej.info/add_employee");
+})
