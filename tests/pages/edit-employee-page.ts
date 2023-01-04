@@ -62,10 +62,10 @@ export class EditEmployeePage {
             await this.gotoUpdateAddress();
         }
 
-        const addressLine1 = await this.page.locator("#id_address_line1").innerText();
-        const addressLine2 = await this.page.locator("#id_address_line2").innerText();
-        const city = await this.page.locator("#id_city").innerText();
-        const zipCode = await this.page.locator("#id_zip_code").innerText();
+        const addressLine1 = await this.page.locator("#id_address_line1").inputValue();
+        const addressLine2 = await this.page.locator("#id_address_line2").inputValue();
+        const city = await this.page.locator("#id_city").inputValue();
+        const zipCode = await this.page.locator("#id_zip_code").inputValue();
 
         await this.page.goto(url);
 
@@ -89,14 +89,18 @@ export class EditEmployeePage {
         await this.page.goto(url);
     }
 
-    async promoteAsManager() {
+    async promoteToManager() {
+        const url = this.page.url()
         await this.page.locator("body > ul > li:nth-child(4) > a").click();
         await this.page.locator("body > form > button").click();
+        await this.page.goto(url);
     }
 
     async addToTeam(teamName: string) {
+        const url = this.page.url()
         await this.page.locator("body > ul > li:nth-child(5) > a").click();
         await this.page.locator("#id_team").selectOption(teamName);
         await this.page.locator("body > form > button").click();
+        await this.page.goto(url);
     }
 }

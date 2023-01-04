@@ -12,7 +12,7 @@ export class EmployeesListPage {
         await this.page.goto("https://e.hr.dmerej.info/employees")
     }
 
-    async getEmployeeEntries(){
+    async getEmployeeEntries(): Promise<EmployeeEntry[]>{
         const tableRows: Locator = this.page.locator("body > table > tbody:nth-child(3) > tr")
 
         const employees: EmployeeEntry[] = []
