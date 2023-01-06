@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
+import {resetDatabase} from "./helpers/database";
 
 test.describe('Navigation', () => {
-  // test.skip(({ browserName }) => browserName !== 'chromium', 'Chromium only!');
+  test.beforeEach(resetDatabase);
 
   test("Open Homepage" , async ({ page }) => {
     // Go to the starting url before each test.

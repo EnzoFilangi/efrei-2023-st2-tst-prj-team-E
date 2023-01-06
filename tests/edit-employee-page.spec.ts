@@ -1,14 +1,14 @@
 import {expect, test} from "@playwright/test";
-import axios from "axios";
 import {EmployeesListPage} from "./pages/employees-list-page";
 import {AddEmployeePage} from "./pages/add-employee-page";
 import {generateValidEmployeeFormData} from "./helpers/generator";
 import {EditEmployeePage} from "./pages/edit-employee-page";
 import {EmployeeDetail} from "./interfaces/employeeDetail";
 import {EmployeeEntry} from "./interfaces/employeeEntry";
+import {resetDatabase} from "./helpers/database";
 
 test.beforeEach(async ({page}) => {
-    await axios.post('https://e.hr.dmerej.info/reset_db');
+    await resetDatabase();
 
     const employeesListPage = new EmployeesListPage(page);
     const addEmployeePage = new AddEmployeePage(page);

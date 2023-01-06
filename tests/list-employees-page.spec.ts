@@ -1,12 +1,10 @@
 import {test, expect} from '@playwright/test';
-import axios from 'axios';
 import {EmployeesListPage} from "./pages/employees-list-page";
 import {AddEmployeePage} from "./pages/add-employee-page";
 import {generateValidEmployeeFormData} from "./helpers/generator";
+import {resetDatabase} from "./helpers/database";
 
-test.beforeEach(async () => {
-    await axios.post('https://e.hr.dmerej.info/reset_db');
-});
+test.beforeEach(resetDatabase);
 
 test('Page should be empty by default', async ({ page }) => {
     const employeeListPage = new EmployeesListPage(page);

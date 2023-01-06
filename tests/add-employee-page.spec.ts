@@ -1,14 +1,11 @@
 import {test, expect} from '@playwright/test';
 import {EmployeeFormData} from "./interfaces/employeeFormData";
 
-import axios from 'axios';
 import {AddEmployeePage} from "./pages/add-employee-page";
 import {generateValidEmployeeFormData} from "./helpers/generator";
+import {resetDatabase} from "./helpers/database";
 
-test.beforeEach(async () => {
-    await axios.post('https://e.hr.dmerej.info/reset_db');
-});
-
+test.beforeEach(resetDatabase);
 
 test('should insert an employee when filling the fields with valid data', async ({ page }) => {
     const data: EmployeeFormData = generateValidEmployeeFormData()
